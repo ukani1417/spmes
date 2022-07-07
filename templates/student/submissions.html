@@ -1,0 +1,79 @@
+{% extends 'student_base.html' %}
+
+{% block title %}Faculty Deshboard{% endblock title %}
+
+{% block body %}
+{% for message in messages %}
+        <div class="container-fluid p-0">
+            <div class="alert {{ message.tags }} alert-dismissible" role="alert" >
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                  <span aria-hidden="True">&times;</span>
+                </button>
+                {{ message }}
+            </div>
+        </div>
+    {% endfor %}
+
+<div class="my-5">
+    <h3 class = "m-2"> Projects </h3>
+    <table class="table table-striped shadow rounded my-2">
+      <thead class = "table-dark">
+          <tr class = "table-dark">
+            <th scope="col">Assignment Name</th>
+            <th scope="col">Deadline</th>
+            <th scope="col">Total points</th>
+            <th scope="col">weightage</th>
+            <th scope="col">Project Type</th>
+            <th scope="col">Upoad Document</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for assignment in assignment_list  %}
+          <tr>
+            <td> {{ assignment.name }} </td>
+            <td> {{ assignment.deadline }} </td>
+            <td> {{ assignment.total_points }} </td>
+            <td> {{ assignment.weightage }} </td>
+            <td> {{ assignment.for_project}} </td>
+            <td><form action="{% url 'upload' assignment.id assignment.for_project.id user.student.sid %}" method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                <input type="file" name="document">
+                <button type="submit">Upload</button>
+            </form></td>
+
+          </tr>
+          {% endfor %}
+        </tbody>
+        </table>
+
+        <br>
+        <br>
+        <h3 class = "m-2"> Submissions </h3>
+        <table class="table table-striped shadow rounded my-2">
+          <thead class = "table-dark">
+              <tr class = "table-dark">
+                <th scope="col">Assignment Name</th>
+                <th scope="col">Submited On</th>
+                <th scope="col">Upoaded Document</th>
+                <th scope="col">Marks</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for submission in submissions  %}
+              <tr>
+                <td> {{ submission.assignment_id.name }} </td>
+                <td> {{ submission.time_stamp }} </td>
+                <td> <a href="{{MEDIA_URL}}{{submission.sub_pdf_name.name}}" style="text-decoration: none;">View Submission <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-eye-fill" viewBox="0 0 16 16">
+                  <path d="M10.5 8a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0z"/>
+                  <path d="M0 8s3-5.5 8-5.5S16 8 16 8s-3 5.5-8 5.5S0 8 0 8zm8 3.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7z"/>
+                </svg></a></td>
+                <td> {{ submission.marks }} </td>   
+              </tr>
+              {% endfor %}
+            </tbody>
+            </table>
+    
+
+</div>
+
+{% endblock body %}

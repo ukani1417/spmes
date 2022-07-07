@@ -1,0 +1,38 @@
+{% extends 'student_base.html' %}
+{% load static %}
+
+{% block css %}
+
+.data{
+    border:none;
+    
+}
+.data pre{
+    font-size:25px;
+}
+pre{
+    font-size:25px;
+}
+{% endblock css %}
+  
+
+
+{% block body %}
+<div class="shadow p-3" style="margin:20% 20% 20% 20%; ">
+  <pre>Project : {{ result.title }} </pre>
+
+        {% for s in result.submission %}
+        <pre> {{s.assignment_id.name}} : {{s.marks}} </pre>
+         {% endfor %}
+        <pre>Viva Marks : {{result.viva_marks}}</pre>
+        <pre>Final Marks :  {{result.final_marks}} </pre>
+        <form method="POST" action="{% url 'dowload_certificate' p_id %}" target="_blank">
+            {% csrf_token %}
+            <button  class="btn btn-primary"type = "submit" id = "download"  name="download">Dowload Certificate</button>
+        </form>
+                
+</div>
+{% endblock body %}
+
+
+

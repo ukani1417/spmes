@@ -1,0 +1,59 @@
+ {% load static %}
+<!DOCTYPE html>
+<html>
+  <head>
+    <!-- style="background-image: url(/home/dhruv/Downloads/lattest/spmes-20220703T125302Z-001/spmes/accounts/static/certi.png);background-repeat: no-repeat;" -->
+    <!-- Required meta tags -->
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+   
+    <title>certificate</title>
+    
+    <style>
+       html,body{
+          margin: 0;
+          height: 100%;
+          overflow:hidden;
+          background-image: url("/home/dhruv/dev/spmes/static/certi.png");
+          background-size:contain;  
+          background-repeat:no-repeat;
+          background-position:center center;
+          width:100%;
+          height:100%;
+        }
+        .head1{
+          margin:18% 0% 0% 0%;
+        }
+        .head{
+          margin:2% 0% 0% 0%;
+        }
+        .data{
+          margin-top: 2%;
+        }
+       
+      
+    </style>
+  </head>
+  
+  <body>
+    <div class="container">
+      <center>
+
+      
+        <pre class="head1">This is to certify that</pre>
+        <u><pre class="head">{{student.name}}</pre></u>
+        
+        <pre class="head">has successfully completed</pre>  
+        <pre class="head">{{project}}</pre>
+      </center>
+        <center class="data">
+          <pre>Student ID : {{student.sid}}   Project Topic : {{sub_project.sub_project_topic}}</pre>
+          <pre>Group Size : {{size}}    Faculty : {{sub_project.related_faculty.name}}</pre>
+          <pre>Start Date : {{startdate}}    End Date : {{enddate}}</pre>
+          <pre>Marks Obtained : {{result.final_marks}}/100</pre> 
+        </center>
+       
+    </div>
+  </body>
+</html>
+

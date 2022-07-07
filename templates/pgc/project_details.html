@@ -1,0 +1,29 @@
+{% extends 'pgc.html' %}
+
+{% block body %}
+
+<table class="table table-striped shadow rounded my-2">
+  <thead class = "table-dark">
+      <tr>
+        <th scope="col">Sr.No.</th>
+        <th scope="col">Faculty Name</th>
+        <th scope="col">Project Area</th>
+        <th scope="col">Project Title</th>
+        <th scope="col">Students</th>
+        <th scope="col">Registered Students</th>
+      </tr>
+    </thead>
+    <tbody>
+        {% for group in group_list %}
+      <tr>
+        <th scope="row">{{forloop.counter}}</th>
+        <td> {{group.sub_project_id.related_faculty}} </td>
+        <td> {{group.sub_project_id.sub_project_area}} </td>
+        <td> {{group.group_title}}</td>
+        <td> {{group.student_id}} </td>
+        <td> {{group.sub_project_id.registred_student.count}} </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+{% endblock body %}

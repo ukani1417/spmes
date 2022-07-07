@@ -1,0 +1,56 @@
+{% extends 'student_base.html' %}
+
+{% block title %}Exam Schedule{% endblock title %}
+
+{% block body %}
+{% for message in messages %}
+        <div class="container-fluid p-0">
+            <div class="alert {{ message.tags }} alert-dismissible" role="alert" >
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                  <span aria-hidden="True">&times;</span>
+                </button>
+                {{ message }}
+            </div>
+        </div>
+    {% endfor %}
+
+    <div class="my-5 bg-light bg-gradient mt-3 rounded">
+        <h3 class="mb-2"> Exam Schedule </h3>
+        <table class="table table-striped shadow rounded my-2">
+            <thead class = "table-dark">
+                <tr class="table-dark">
+                    <th scope="col">Sr. No.</th>
+                    <th scope="col">Student IDs</th>
+                    <th scope="col">Faculty Name</th>
+                    <th scope="col">Group Title</th>
+                    <th scope="col">Date</th>
+                    <th scope="col">Time</th>
+                    <th scope="col">Venue</th>
+                    <th scope="col">Examiners</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for group in groups %}
+                <tr>
+                    <td> {{ forloop.counter }} </td>
+                    <td> {{ group.student_id }} </td>
+                    <td> {{ group.sub_project_id.related_faculty }} </td>
+                    <td> {{ group.group_title }} </td>
+                    <td> {{ group.schedule.date }} </td>
+                    <td> {{ group.schedule.time }} </td>
+                    <td> {{ group.schedule.venue }} </td>
+                    <td>
+                        <table>
+                            {% for name in group.schedule.committee_id.assigned_faculty.all %}
+                            <tr>
+                                <td>{{name}}</td>
+                            </tr>
+                            {% endfor %}
+                        </table>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock body %}

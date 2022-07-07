@@ -1,0 +1,60 @@
+{% extends 'pgc.html' %}
+
+{% block title %}Assignments{% endblock title %}
+
+{% block body %}
+<div class = "p-2 bg-light bg-gradient mt-3 rounded">
+  <h4> Create Assignments: </h4>
+<form method="post" action="{% url 'add_assignment' p_id %}" class="row gy-2 gx-3 align-items-center mx-auto">
+  {% csrf_token %}
+  <div class="col-auto">
+      {{form.name}}
+  </div>
+  <div class="col-auto">
+      {{form.deadline}}
+  </div>
+  <div class="col-auto">
+      {{form.total_points}}
+  </div>
+  <div class="col-auto">
+      {{form.weightage}}
+  </div>
+  <div class="col-auto">
+      <button type="submit" class="btn btn-primary btn-sm">Submit</button>
+  </div>
+</form>
+</div>
+
+  <div class="my-5">
+      <h3 class = "m-2"> Projects </h3>
+      <table class="table table-striped shadow rounded my-2">
+        <thead class = "table-dark">
+            <tr class = "table-dark">
+              <th scope="col">Assignment Name</th>
+              <th scope="col">Deadline</th>
+              <th scope="col">Total points</th>
+              <th scope="col">weightage</th>
+              <th scope="col">Project Type</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for project in assignment_list  %}
+            <tr>
+              <td> {{ project.name }} </td>
+              <td> {{ project.deadline }} </td>
+              <td> {{ project.total_points }} </td>
+              <td> {{ project.weightage }} </td>
+              <td> {{ project.for_project}} </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+          </table>
+          <a href="{% url 'logout'%}" class="nav-link text-white">
+              <svg class="bi pe-none me-2" width="16" height="16">
+                  <use xlink:href="#grid" />
+              </svg>
+              Logout
+          </a>
+</div>
+
+{% endblock body %}

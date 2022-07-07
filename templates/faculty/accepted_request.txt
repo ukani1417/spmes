@@ -1,0 +1,13 @@
+{% autoescape off %}
+Dear Student,{{username}}
+
+Congratulations,
+
+Your Request In Program {{main_project}} for 
+
+project Area : {{sub_project_area}} and Project Topic : {{sub_project_topic}} Under  Professor {{faculty}}  is accepted.
+
+
+Regards,
+SPMES
+{% endautoescape %}

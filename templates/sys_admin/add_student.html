@@ -1,0 +1,50 @@
+{% extends 'sys_admin_base.html' %}
+
+{% block title %}Student Details{% endblock title %}
+
+{% block css %}
+
+{% endblock css %}
+
+{% block body %}
+<div class = "my-2 bg-secondary bg-gradient bg-opacity-25 py-2 rounded">
+<form action=""method="POST" enctype="multipart/form-data" class="form-horizontal"> 
+    {% csrf_token %}
+    <div class="form-group" style="display: flex;">
+        <div>
+            <label for="name" class = "fs-4 mx-2"><b>Add Students: </b></label>
+        </div>
+       <div >
+            <input type="file" name="csv_file" id="csv_file" required="True" class="form-control">
+        </div>  
+        <div >                    
+            <div style="margin: 0px 20px">
+                <button class="btn btn-primary" type="submit" name="addstudent"> <span class="glyphicon glyphicon-upload" style="margin-right:5px;"></span>Upload </button>
+            </div> 
+        </div>               
+    </div>
+</form>
+</div>
+<div style="margin-top:20px">
+    <table class="table table-striped shadow rounded my-2">
+        <thead class = "table-dark">
+            <tr class="rounded-top">
+                <th scope="col">Name</th>
+                <th scope="col">Email</th>
+                <th scope="col">Id</th>
+                <th scope="col">Program</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for student in student_details %}
+            <tr class="rounded-top">
+                <td>{{student.name}}</td>
+                <td>{{student.user.email}}</td>
+                <td>{{student.sid}}</td>
+                <td>{{student.program}}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock body %}

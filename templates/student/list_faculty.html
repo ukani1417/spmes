@@ -1,0 +1,82 @@
+{% extends 'student_base.html' %}
+
+{% block title %}Faculty list{% endblock title %}
+
+{% block body %}
+
+{% include 'message.html' %}
+{% for message in messages %}
+        <div class="container-fluid p-0">
+            <div class="alert {{ message.tags }} alert-dismissible" role="alert" >
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                  <span aria-hidden="True">&times;</span>
+                </button>
+                {{ message }}
+            </div>
+        </div>
+    {% endfor %}
+
+    <table class="table table-striped shadow rounded my-2">
+        <thead class = "table-dark">
+    <tr>
+        <th scope="col">Name</th>
+        <th scope="col">Project Area</th>
+        <th scope="col">Project Topic</th>
+        <th scope="col">Pdf</th>
+        <th scope="col">Max Capacity</th>
+        <th scope="col">Student applied</th>
+        <th scope="col">Action</th>
+    </tr>
+</thead>
+<tbody>
+    {% for  list,c in all %}
+    <tr>
+        <td>{{ list.related_faculty.name }}</td>
+        <td>{{ list.sub_project_area }}</td>
+        <td>{{ list.sub_project_topic }}</td>
+        <td>{{ list.pdf_name }}</td>
+        <td>{{ list.max_cap }}</td>
+        <td>{{ c }} </td>
+        <td>
+            <form action="{% url 'apply' p_id list.id %}" method = "post">
+                {% csrf_token %}
+                <button type="submit" class = "btn btn-primary" {% if is_reg or not parent_obj.status %} disabled {% endif %}> Apply</button>
+            </form>
+        </td>
+    </tr>
+    {% endfor %}
+</tbody>
+</table>
+
+<h3 class = "mt-3"> Prefrences </h3>
+<table class="table table-striped shadow rounded my-2">
+    <thead class = "table-dark">
+    <tr>
+        <th scope="col">Sr. No.</th>
+        <th scope="col">Name</th>
+        <th scope="col">Project Area</th>
+        <th scope="col">Project Topic</th>
+        <th scope="col">Status</th>
+        <th scope="col">Action</th>
+    </tr>
+</thead>
+    
+    {% for  app,c in app_list %}
+    <tr>
+        <td>{{ forloop.counter }}</td>
+        <td>{{ c.related_faculty.name }}</td>
+        <td>{{ c.sub_project_area }}</td>
+        <td>{{ c.sub_project_topic }}</td>
+        <td>{{app.status}}</td>
+        <td>
+
+            <form action="{% url 'delete_apply' p_id app.id %}" method = "post">
+                {% csrf_token %}
+                <button type="submit" class = "btn btn-primary" {% if  is_reg or not parent_obj.status %} disabled {% endif %} > Delete </button>
+            </form>
+           
+        </td>
+    </tr>
+    {% endfor %}
+    </table>
+{% endblock body %}

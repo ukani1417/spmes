@@ -1,0 +1,70 @@
+{% extends 'base.html' %} 
+{% load static %}
+{% block title %}Login{% endblock title %}
+{% block css %}
+body{
+  background-image:url({% static 'campus.jpg' %});
+  background-size:cover;
+}
+.center{
+  opacity : 0.8;
+}
+
+{% endblock css %}
+{% block content %}
+{% for message in messages %}
+            <div class="container-fluid p-0">
+              <div class="alert {{ message.tags }} alert-dismissible" role="alert" >
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                  <span aria-hidden="True">&times;</span>
+                </button>
+                {{ message }}
+              </div>
+            </div>
+            {% endfor %}
+<center class="center">
+
+              <div class="shadow p-3 mb-5 bg-white rounded"  style="margin-top : 9%; margin-left:35% ; margin-right: 35%; ">
+
+                {% comment %} <div class="text-"> {% endcomment %}
+                  <img src = "static/DaiictLogo.jpg "
+                    style="width: 90%;" alt="logo">
+                  <h4 class="mt-1 mb-3 pb-1"></h4>
+                {% comment %} </div> {% endcomment %}
+
+                <form method="POST">
+                  {% csrf_token %}
+                  <div class="form-outline mb-4">
+                    <input
+                      type="email"
+                      name="username"
+                      id="form2Example1"
+                      class="form-control"
+                    />
+                    <label class="form-label" for="form2Example1">Email address</label>
+                  </div>
+
+                  <div class="form-outline mb-4">
+                    <input
+                      type="password"
+                      name="password"
+                      id="form2Example2"
+                      class="form-control"
+                    />
+                    <label class="form-label" for="form2Example2">Password</label>
+                  </div>
+
+                  <div class="text-center pt-1 mb-5 pb-1">
+                    <button type="submit" class="btn btn-primary btn-block fa-lg gradient-custom-2 mb-3">
+                      Login
+                    </button>
+                    
+                    <a  href="/password_reset">Forgot password?</a>
+                  </div>
+                </form>
+              </div>
+            </center>
+          
+{% comment %} </section> {% endcomment %}
+
+{% endblock content %}

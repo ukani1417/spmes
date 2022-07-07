@@ -1,0 +1,41 @@
+{% extends 'faculty_program.html' %}
+
+{% block title %}Submissions{% endblock title %}
+
+{% block body %}
+
+<table class="table table-hover table-striped shadow rounded mt-2">
+    <thead>
+      <tr class = "bg-dark text-light">
+        <th scope="col">Group Title</th>
+        <th scope="col">Student List</th>
+        <th scope="col">Submission PDF</th>
+        <th scope="col">Date & Time</th>
+        <th scope="col">Marks</th>
+      </tr>
+    </thead>
+    <tbody>
+        
+        {% for ll in sub_list %}
+        <tr>
+        
+            <td>{{ll.title}}</td>
+            <td>{{ll.stud}}</td>
+            <td><a href="{{MEDIA_URL}}{{ll.list.sub_pdf_name.name}}">{{ll.list.sub_pdf_name.name}}</a></td>
+            <td>{{ll.list.time_stamp}}</td>
+            <td>
+              <form action="{% url 'give_marks' ll.list.id sp %}" method = 'post' style = "display: flex;">
+                {% csrf_token %}
+                <input type="number" class = "form-control" name = "marks" placeholder="{{ll.list.marks}}">
+                <button type = "submit" class = "btn btn-primary"> submit </button>
+              </form>
+            </td>
+
+        </tr>
+        <br>
+        {% endfor %}
+      
+    </tbody>
+  </table>
+
+{% endblock body %}

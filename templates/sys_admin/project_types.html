@@ -1,0 +1,92 @@
+{% extends 'sys_admin_base.html' %}
+
+{% block title %}Project Types | Program Coordinator{% endblock title %}
+{% block css %}
+
+.table_parent{
+    display: flex;
+    justify-content: space-around;
+    margin-top:30px
+}
+{% endblock css %}
+{% block body %}
+
+<div class="table_parent">
+    <div class="table_child">
+        <form method="post" action="project_types" class = "row gy-2 gx-3 align-items-center mx-auto">
+            {% csrf_token %}
+            <div class = "col-auto">
+                <input type="text" class="form-control" id="addtype" name="addtype" placeholder="BTech-SRI">
+            </div>
+            <div class = "col-auto">
+                <button class="btn btn-primary btn-sm" style="margin-left:10px" type="submit">Submit</button>
+            </div>
+        </form>
+        <table class="table table-striped shadow rounded my-2">
+            <thead class = "table-dark">
+                <tr>
+                    <th scope="col">Project Type</th>
+                    <th scope="col">Remove</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for type in types %}
+                <tr>
+                    <td>{{type.p_type}}</td>
+                    <td>
+                        <form action="{% url 'deletedata' type.id %}" method="post">
+                            {% csrf_token %}
+                            <input type="submit" class="btn btn-danger btn-sm" value="Remove">
+                        </form>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    
+    
+    <div class="table_child">
+        <form method="post" action="{% url 'add_program'%}" class = "row gy-2 gx-3 align-items-center mx-auto">
+            {% csrf_token %}
+            <div class = "col-auto">
+                {{form.name}}
+            </div>
+            <div class = "col-auto">
+                {{form.assigned_faculty}}
+            </div>
+            <div class = "col-auto">
+                <button type="submit" class="btn btn-primary" style="margin-left:10px">Submit</button>
+            </div>
+        </form>
+        <table class="table table-striped shadow rounded my-2">
+            <thead class = "table-dark">
+                <tr>
+                    <th scope="col">Program</th>
+                    <th scope="col">Program Coordinator</th>
+                    <th scope="col">Remove</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for program in programs %}
+                <tr>
+                    <td>{{program.name}}</td>
+                    <td>{{program.assigned_faculty}}</td>
+                    <td>
+                        <form action="{% url 'deleteprogram' program.id %}" method="post">
+                            {% csrf_token %}
+                            <input type="submit" class="btn btn-danger btn-sm" value="Remove">
+                        </form>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    
+</div>
+
+
+
+{% endblock body %}

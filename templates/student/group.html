@@ -1,0 +1,42 @@
+{% extends 'student_base.html' %}
+
+{% block title %}Group Details{% endblock title %}
+
+{% block body %}
+{% for message in messages %}
+        <div class="container-fluid p-0">
+            <div class="alert {{ message.tags }} alert-dismissible" role="alert" >
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                  <span aria-hidden="True">&times;</span>
+                </button>
+                {{ message }}
+            </div>
+        </div>
+    {% endfor %}
+
+    <table class="table table-striped shadow rounded my-2">
+      <thead class = "table-dark">
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Project Title</th>
+        <th scope="col">Student Ids</th>
+      </tr>
+    </thead>
+    <tbody class="table-group-divider">
+      <tr>
+        <th scope="row">1</th>
+        <td>{{group.group_title}}</td>
+        <td>
+            <table>
+                {% for id in ids %}
+                    <tr>
+                        <td>{{id}}</td>
+                    </tr>
+                {% endfor %}
+            </table>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+{% endblock body %}

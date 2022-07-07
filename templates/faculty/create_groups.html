@@ -1,0 +1,41 @@
+{% extends 'faculty_program.html' %}
+
+{% block title %}Create Groups{% endblock title %}
+
+{% block body %}
+
+<div>
+    <form action="{% url 'add_group' sp %}" method='POST'>
+        {% csrf_token%}
+        <div class = "col-6">
+        
+        <input type="text" class="form-control m-2" name="sid" id="sid" placeholder = "Enter student IDs e,g,. 201901054,201901055" required = true>
+        <input type="text" class="form-control m-2" name="grp_title" id="grp_title" placeholder = "Project Title" required = tru>
+        <button type="submit" class="btn btn-success m-2">+Create</button>
+        </div>
+    </form>
+</div>
+<div>
+    <table class="table table-hover table-striped shadow rounded">
+        <thead class="thead-dark bg-dark text-light">
+            <tr>
+                <th scope="col">Sr. No.</th>
+                <th scope="col">Project topic</th>
+                <th scope="col">Student IDs</th>
+                <th scope="col">Project Title</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for grp in group_list %}
+            <tr>
+                <td>{{ forloop.counter }}</td>
+                <td>{{grp.sub_project_id}}</td>
+                <td>{{grp.student_id}}</td>
+                <td>{{grp.group_title}}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+{% endblock body %}
