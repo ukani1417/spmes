@@ -1,12 +1,7 @@
 
-from ast import mod
-from pyexpat import model
-from random import choices
-from tkinter import CASCADE
-from tokenize import group
 from django.db import models
 from django.contrib.auth.models import AbstractUser
-from django.forms import CharField
+
 
 # Create your models here.
 
